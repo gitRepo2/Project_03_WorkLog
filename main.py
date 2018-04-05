@@ -89,13 +89,16 @@ class UserInteraction(Task):
                     parsed_input_date = datetime.datetime.strptime(
                         date_input, '%m/%d/%Y')
                 except ValueError:
-                    print("{} doesn't seem to be a valid date.".format(
+                    print("'{}' doesn't seem to be a valid date.".format(
                         date_input))
                 else:
-                    local_date = pytz.timezone('Europe/Paris').localize(
-                        parsed_input_date)
-                    utc_date = local_date.astimezone(pytz.utc)
-                    break
+                    if date_input == '01/01/0001':
+                        print('This date is not allowed to be used.')
+                    else:
+                        local_date = pytz.timezone('Europe/Paris').localize(
+                            parsed_input_date)
+                        utc_date = local_date.astimezone(pytz.utc)
+                        break
             # Ask for time spent on the task
             print("\nHow much time did you spend on task '{}'? ".format(
                 name_input))
